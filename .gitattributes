@@ -1,0 +1,2 @@
+MMasseyOrdinals_filtered.csv filter=lfs diff=lfs merge=lfs -text
+MRegularSeasonDetailedResults_filtered.csv filter=lfs diff=lfs merge=lfs -text
