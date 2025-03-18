@@ -5,11 +5,12 @@ def compute_team_per_possession_matrix(csv_file):
     df = pd.read_csv(csv_file)
     
     # Estimate possessions for winning and losing teams
-    df["WPoss"] = df["WFGA"] - df["WOR"] + df["WTO"] + (0.44 * df["WFTA"])
-    df["LPoss"] = df["LFGA"] - df["LOR"] + df["LTO"] + (0.44 * df["LFTA"])
+    df["WPoss"] = df["WFGA"] - (df["WOR"]/(df["WOR"] + df["LDR"]))*(df["WFGA"] - df["WFGM"]) * 1.07 + df["WTO"] + (0.44 * df["WFTA"])
+    df["LPoss"] = df["LFGA"] - (df["LOR"]/(df["LOR"] + df["WDR"]))*(df["LFGA"] - df["LFGM"]) * 1.07 + df["LTO"] + (0.44 * df["LFTA"])
 
     # Compute per-possession stats for both winning and losing teams
     for prefix in ["W", "L"]:
+        df[f"{prefix}TS%"] = 0.5 * df[f"{prefix}Score"]/(df[f"{prefix}FGA"] + 0.44*df[f"{prefix}FTA"])
         df[f"{prefix}eFG%"] = (df[f"{prefix}FGM"] + 0.5 * df[f"{prefix}FGM3"]) / df[f"{prefix}FGA"]
         df[f"{prefix}TO%"] = df[f"{prefix}TO"] / df[f"{prefix}Poss"]
         df[f"{prefix}OREB%"] = df[f"{prefix}OR"] / (df[f"{prefix}OR"] + df[f"{'L' if prefix == 'W' else 'W'}DR"])
@@ -29,7 +30,7 @@ def compute_team_per_possession_matrix(csv_file):
             if key not in team_stats:
                 team_stats[key] = {
                     "TeamID": team,
-                    "Games": 0, "TotalPoss": 0,
+                    "Games": 0, "TotalPoss": 0, "TS%": 0, 
                     "eFG%": 0, "TO%": 0, "OREB%": 0, "DREB%": 0, "FTR": 0,
                     "3PAr": 0, "AST/TO": 0, "STL%": 0, "BLK%": 0,
                     "PointsPerPoss": 0, "AdjO": 0, "AdjD": 0
@@ -37,6 +38,7 @@ def compute_team_per_possession_matrix(csv_file):
 
             team_stats[key]["Games"] += 1
             team_stats[key]["TotalPoss"] += poss
+            team_stats[key]["TS%"] += row[f"{prefix}TS%"] * poss
             team_stats[key]["eFG%"] += row[f"{prefix}eFG%"] * poss
             team_stats[key]["TO%"] += row[f"{prefix}TO%"] * poss
             team_stats[key]["OREB%"] += row[f"{prefix}OREB%"] * poss
@@ -63,6 +65,7 @@ def compute_team_per_possession_matrix(csv_file):
     for (season, team), stats in team_stats.items():
         row = [season, team]
         row.extend([
+            stats["TS%"] / stats["TotalPoss"],
             stats["eFG%"] / stats["TotalPoss"],
             stats["TO%"] / stats["TotalPoss"],
             stats["OREB%"] / stats["TotalPoss"],
@@ -79,7 +82,7 @@ def compute_team_per_possession_matrix(csv_file):
         team_features.append(row)
 
     # Convert to DataFrame
-    feature_columns = ["Season", "TeamID", "eFG%", "TO%", "OREB%", "DREB%", "FTR", "3PAr", "AST/TO", "STL%", "BLK%", "PointsPerPoss", "AdjO", "AdjD"]
+    feature_columns = ["Season", "TeamID", "TS%","eFG%", "TO%", "OREB%", "DREB%", "FTR", "3PAr", "AST/TO", "STL%", "BLK%", "PointsPerPoss", "AdjO", "AdjD"]
     team_matrix = pd.DataFrame(team_features, columns=feature_columns)
     return team_matrix
 
