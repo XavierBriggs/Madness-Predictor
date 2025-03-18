@@ -48,17 +48,23 @@ def compute_team_per_possession_matrix(csv_file):
             team_stats[key]["AST/TO"] += row[f"{prefix}AST/TO"] * poss
             team_stats[key]["STL%"] += row[f"{prefix}STL%"] * poss
             team_stats[key]["BLK%"] += row[f"{prefix}BLK%"] * poss
-            team_stats[key]["PointsPerPoss"] += score * poss
+            team_stats[key]["PointsPerPoss"] += score 
 
     # Compute Adjusted Offensive and Defensive Ratings
+    season_avg_ppp = {
+    season: sum(stats["PointsPerPoss"] / stats["TotalPoss"] for (s, _), stats in team_stats.items() if s == season) / len([t for (s, t) in team_stats.keys() if s == season])
+    for season in set(s for s, _ in team_stats.keys())
+    }
+
     for (season, team), stats in team_stats.items():
         opponents = [opponent for (s, opponent) in team_stats.keys() if s == season and opponent != team]
         if opponents:
-            avg_opponent_def = sum(team_stats[(season, opp)]["PointsPerPoss"] for opp in opponents) / len(opponents)
-            avg_opponent_off = sum(team_stats[(season, opp)]["PointsPerPoss"] for opp in opponents) / len(opponents)
-            
-            stats["AdjO"] = stats["PointsPerPoss"] * (avg_opponent_def / sum(stats["PointsPerPoss"] for stats in team_stats.values()))
-            stats["AdjD"] = stats["PointsPerPoss"] * (avg_opponent_off / sum(stats["PointsPerPoss"] for stats in team_stats.values()))
+            avg_opponent_def = sum(team_stats[(season, opp)]["PointsPerPoss"] / team_stats[(season, opp)]["TotalPoss"] for opp in opponents) / len(opponents)
+            avg_opponent_off = sum(team_stats[(season, opp)]["PointsPerPoss"] / team_stats[(season, opp)]["TotalPoss"] for opp in opponents) / len(opponents)
+
+            stats["AdjO"] = (stats["PointsPerPoss"] / stats["TotalPoss"]) * (avg_opponent_def / season_avg_ppp[season])
+            stats["AdjD"] = (stats["PointsPerPoss"] / stats["TotalPoss"]) * (avg_opponent_off / season_avg_ppp[season])
+
 
     # Normalize per possession
     team_features = []
