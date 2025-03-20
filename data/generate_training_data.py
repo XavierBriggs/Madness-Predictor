@@ -46,7 +46,7 @@ def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_c
             team_w_vector = team_map[(season, quarter, team_w)]
             team_l_vector = team_map[(season, quarter, team_l)]
 
-            sigma = 8.86  # Adjusted probability scaling
+            sigma = 15  # Adjusted probability scaling
             p = lambda delta: 0.5 + 0.5 * erf(delta / sigma)
             
             # Randomly shuffle order of teams

@@ -36,13 +36,13 @@ class MarchMadnessNN(nn.Module):
     def __init__(self, input_size):
         super(MarchMadnessNN, self).__init__()
         self.model = nn.Sequential(
-            nn.Linear(input_size, 128),  # More neurons
+            nn.Linear(input_size, 16),  # More neurons
             nn.ReLU(),
-            nn.Linear(128, 64),
+            nn.Linear(16, 16),
             nn.ReLU(),
-            nn.Linear(64, 32),
+            nn.Linear(16, 16),
             nn.ReLU(),
-            nn.Linear(32, 2),
+            nn.Linear(16, 2),
             nn.Softmax(dim=1)
         )
 
@@ -108,8 +108,10 @@ if __name__ == "__main__":
     model = MarchMadnessNN(input_size)
 
     # Train the model
-    train_model(model, train_loader, test_loader, epochs=400, lr=0.0005)
+    train_model(model, train_loader, test_loader, epochs=50, lr=0.0005)
 
     # Final Accuracy
     final_accuracy = evaluate_model(model, test_loader)
     print(f"Final Test Accuracy: {final_accuracy:.2f}%")
+
+    torch.save(model.state_dict(), "model.pth")
