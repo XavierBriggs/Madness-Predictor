@@ -52,7 +52,7 @@ class MarchMadnessNN(nn.Module):
 loss_history = []
 
 def train_model(model, train_loader, test_loader, epochs=100, lr=0.001):
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss() # was nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
     for epoch in range(epochs):
@@ -108,10 +108,10 @@ if __name__ == "__main__":
     model = MarchMadnessNN(input_size)
 
     # Train the model
-    train_model(model, train_loader, test_loader, epochs=50, lr=0.0005)
+    train_model(model, train_loader, test_loader, epochs=30, lr=0.0005)  # epcohs = 15
 
     # Final Accuracy
     final_accuracy = evaluate_model(model, test_loader)
     print(f"Final Test Accuracy: {final_accuracy:.2f}%")
 
-    torch.save(model.state_dict(), "model.pth")
+    torch.save(model.state_dict(), "model_heavy.pth")
