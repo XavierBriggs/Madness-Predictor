@@ -4,7 +4,7 @@ A machine learning-based system for predicting NCAA March Madness basketball tou
 
 ## Project Overview
 
-XG-MM analyzes basketball team performance data on a quarterly basis, generates feature matrices, and uses a neural network model to predict game outcomes in the NCAA March Madness tournament. The system processes historical game data, calculates advanced basketball metrics, and makes predictions for tournament matchups.
+Madness-Predictor analyzes basketball team performance data on a quarterly basis, generates feature matrices, and uses a neural network model to predict game outcomes in the NCAA March Madness tournament. The system processes historical game data, calculates advanced basketball metrics, and makes predictions for tournament matchups.
 
 ## Directory Structure
 
@@ -26,8 +26,8 @@ XG-MM analyzes basketball team performance data on a quarterly basis, generates 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/XG-MM.git
-   cd XG-MM
+   git clone https://github.com/yourusername/Madness-Predictor.git
+   cd Madness-Predictor
    ```
 
 2. Install required dependencies:
