@@ -1,7 +1,7 @@
 # Raw Data Directory
 
 ## Overview
-This directory contains the original NCAA basketball tournament data files used as input for the XG-MM prediction model. These files serve as the foundation for all data processing and model training.
+This directory contains the original NCAA basketball tournament data files used as input for the prediction model. These files serve as the foundation for all data processing and model training.
 
 ## Data Files
 
