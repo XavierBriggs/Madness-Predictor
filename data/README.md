@@ -1,7 +1,7 @@
 # Data Directory
 
 ## Overview
-This directory contains all data-related files for the XG-MM March Madness prediction project, including raw NCAA tournament data, data processing scripts, and processed datasets ready for model training.
+This directory contains all data-related files for the Madness-Predictor March Madness prediction project, including raw NCAA tournament data, data processing scripts, and processed datasets ready for model training.
 
 ## Directory Structure
 - `/raw`: Original NCAA basketball data files
