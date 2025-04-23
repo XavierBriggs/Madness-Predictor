@@ -50,3 +50,9 @@ This will:
 2. Determine winners based on win probabilities
 3. Generate matchups for the next round
 4. Save the matchups to `../data/processed/round<round_number>.csv`
+
+To concatenate these steps:
+```
+./play_round <round_number>
+```
+This will simulate round `<round_number` and generate next round matchups. 
