@@ -84,10 +84,10 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 You are free to use, modify, and distribute this software, provided that proper attribution is given.
 
 ## Contact
-Notre Dame SAC MBB Memebers
-Xavier Briggs - xbriggs@nd.edu [linkedin-XavierBriggs](www.linkedin.com/in/xavierbriggs05)
-George Kyrollos - gkyrollo@nd.edu [linkedin-GeorgeKyrollos](https://www.linkedin.com/in/george-kyrollos-744047286/)
-Andre Mayard - amayard@nd.edu [linkdin](https://www.linkedin.com/in/andre-mayard-907876285/)
+- Notre Dame SAC MBB Memebers
+- Xavier Briggs - xbriggs@nd.edu [linkedin.com/in/xavierbriggs05](https://linkedin.com/in/xavierbriggs05)
+- George Kyrollos - gkyrollo@nd.edu (https://www.linkedin.com/in/george-kyrollos-744047286/)
+- Andre Mayard - amayard@nd.edu https://www.linkedin.com/in/andre-mayard-907876285/
 
 
 
