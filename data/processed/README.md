@@ -1,7 +1,7 @@
 # Processed Data Directory
 
 ## Overview
-This directory contains the cleaned, transformed, and structured data files used for training the XG-MM March Madness prediction model and generating tournament predictions. These files are derived from the raw data through various processing scripts.
+This directory contains the cleaned, transformed, and structured data files used for training the March Madness prediction model and generating tournament predictions. These files are derived from the raw data through various processing scripts.
 
 ## Data Files
 
