@@ -86,8 +86,8 @@ You are free to use, modify, and distribute this software, provided that proper 
 ## Contact
 - Notre Dame SAC MBB Memebers
 - Xavier Briggs - xbriggs@nd.edu [linkedin.com/in/xavierbriggs05](https://linkedin.com/in/xavierbriggs05)
-- George Kyrollos - gkyrollo@nd.edu (https://www.linkedin.com/in/george-kyrollos-744047286/)
-- Andre Mayard - amayard@nd.edu https://www.linkedin.com/in/andre-mayard-907876285/
+- George Kyrollos - gkyrollo@nd.edu [linkedin.com/in/georgekyrollos-744047286](https://www.linkedin.com/in/george-kyrollos-744047286/)
+- Andre Mayard - amayard@nd.edu [linkedin.com/in/andre-mayard-907876285](https://www.linkedin.com/in/andre-mayard-907876285/)
 
 
 
