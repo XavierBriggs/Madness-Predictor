@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -36,24 +38,15 @@ class MarchMadnessNN(nn.Module):
     def __init__(self, input_size):
         super(MarchMadnessNN, self).__init__()
         self.model = nn.Sequential(
-            nn.Linear(input_size, 256),
+            nn.Linear(input_size, 16),  # More neurons
             nn.ReLU(),
-            nn.Linear(256, 128),
+            nn.Linear(16, 16),
             nn.ReLU(),
-            nn.Linear(128, 64),
+            nn.Linear(16, 16),
             nn.ReLU(),
-            nn.Linear(64, 32),
-            nn.ReLU(),
-            nn.Linear(32, 2),
-            nn.Sigmoid(),
-           # nn.Sigmoid()  # Use Sigmoid for binary classification
+            nn.Linear(16, 2),
+            nn.Softmax(dim=1)
         )
-
-    def forward(self, x):
-        return self.model(x)
-
-    criterion = nn.BCELoss()
-
 
     def forward(self, x):
         return self.model(x)
@@ -117,26 +110,10 @@ if __name__ == "__main__":
     model = MarchMadnessNN(input_size)
 
     # Train the model
-    train_model(model, train_loader, test_loader, epochs=1000, lr=0.0005)
+    train_model(model, train_loader, test_loader, epochs=30, lr=0.0005)  # epcohs = 15
 
     # Final Accuracy
     final_accuracy = evaluate_model(model, test_loader)
     print(f"Final Test Accuracy: {final_accuracy:.2f}%")
 
-    # After training is complete
-    torch.save(model.state_dict(), "march_madness_nn.pth")  # Save model weights
-
-    # test
-    model.eval()
-    # Make Predictions
-    train_dataset, test_dataset = load_data("data/training_data.csv", "data/testing_data.csv")
-    X_new = train_dataset[0][0]
-with torch.no_grad():
-    predictions = model(X_new)
-
-predicted_classes =predictions
-probabilities = predictions
-
-print(predicted_classes)
-print(probabilities)
-
+    torch.save(model.state_dict(), "model_heavy.pth")

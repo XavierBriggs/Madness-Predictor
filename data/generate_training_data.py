@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from scipy.special import erf
 
 
-def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_csv, test_csv, test_size=0.2, random_seed=36271):
+def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_csv, test_csv, test_size=0.2, random_seed=3627):
     # Load the March Madness tournament results
     tourney_results = pd.read_csv(tourney_results_csv)
     
@@ -46,18 +46,16 @@ def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_c
             team_w_vector = team_map[(season, quarter, team_w)]
             team_l_vector = team_map[(season, quarter, team_l)]
 
-            sigma = 8.86  # Adjusted probability scaling
+            sigma = 10  # Adjusted probability scaling
             p = lambda delta: 0.5 + 0.5 * erf(delta / sigma)
             
             # Randomly shuffle order of teams
             if np.random.rand() > 0.5:
                 matchup_vector = list(team_w_vector) + list(team_l_vector)
-                #y_label = [p(delta), 1 - p(delta)]  # Team 1 wins
-                y_label = [1, 0]
+                y_label = [p(delta), 1 - p(delta)]  # Team 1 wins
             else:
                 matchup_vector = list(team_l_vector) + list(team_w_vector)
-                #y_label = [1 - p(delta), p(delta)]  # Team 2 wins
-                y_label = [0, 1]
+                y_label = [1 - p(delta), p(delta)]  # Team 2 wins
             
             X.append(matchup_vector)
             Y.append(y_label)
@@ -81,13 +79,10 @@ def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_c
     print(f"Training data saved as {train_csv}")
     print(f"Testing data saved as {test_csv}")
 
-teams_quarters = "teams_by_quarter"
-
-
 # Example usage
 generate_training_data(
-    "raw/MRegularSeasonDetailedResults_with_poss.csv", 
-    f"processed/{teams_quarters}.csv", 
+    "raw\MRegularSeasonDetailedResults_with_poss.csv",
+    "processed/teams.csv",
     "../models/data/training_data.csv",
     "../models/data/testing_data.csv"
 )
