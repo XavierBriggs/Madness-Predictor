@@ -80,8 +80,14 @@ The system calculates and uses the following basketball metrics:
 
 ## License
 
-[Your License Information]
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+You are free to use, modify, and distribute this software, provided that proper attribution is given.
 
 ## Contact
+Notre Dame SAC MBB Memebers
+Xavier Briggs - xbriggs@nd.edu [linkedin-XavierBriggs](www.linkedin.com/in/xavierbriggs05)
+George Kyrollos - gkyrollo@nd.edu [linkedin-GeorgeKyrollos](https://www.linkedin.com/in/george-kyrollos-744047286/)
+Andre Mayard - amayard@nd.edu [linkdin](https://www.linkedin.com/in/andre-mayard-907876285/)
 
-[Your Contact Information]
+
+
