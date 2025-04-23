@@ -1,6 +1,6 @@
 # Source Code Directory
 
-This directory contains the source code for prediction generation and tournament simulation for the XG-MM March Madness prediction system.
+This directory contains the source code for prediction generation and tournament simulation for the Madness-Predictor March Madness prediction system.
 
 ## Contents
 
