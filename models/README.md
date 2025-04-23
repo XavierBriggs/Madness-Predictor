@@ -1,7 +1,7 @@
 # Models Directory
 
 ## Overview
-This directory contains the neural network model definition, trained model weights, and training data for the XG-MM March Madness prediction system. The model is designed to predict win probabilities for matchups between NCAA basketball teams.
+This directory contains the neural network model definition, trained model weights, and training data for the Madness-Predictor March Madness prediction system. The model is designed to predict win probabilities for matchups between NCAA basketball teams.
 
 ## Key Files
 
