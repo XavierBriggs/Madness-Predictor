@@ -132,7 +132,19 @@ def add_poss_stats(file):
     return total_df.to_csv(f"./raw/{output_file}", index=False)
 
 
+def concat_data(file1, file2):
 
+    df1 = pd.read_csv(file1)
+
+    df2 = pd.read_csv(file2)
+
+    concatdf = pd.concat([df2, df1])
+
+    return concatdf.to_csv(f"./raw/MRegularDetailed*MNCAATourneydetailed.csv", index=False)
+    
+
+def split_quarter():
+    pass
     
 
 def main():
@@ -140,6 +152,7 @@ def main():
     # refactor_year("MMasseyOrdinals_filtered.csv")
     # add_rank_col("MNCAATourneyDetailedResults.csv","MMasseyOrdinals_filtered.csv")
     # add_poss_stats("MNCAATourneyDetailedResults_addedrank.csv")
+    concat_data("raw/MNCAATourneyDetailedResults_with_poss.csv", "raw/MRegularSeasonDetailedResults_with_poss.csv")
 
 
 if __name__ == "__main__":
