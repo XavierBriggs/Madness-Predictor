@@ -1,4 +1,4 @@
-# Madness-Predictor: March Madness Prediction System
+# Madness-Predictor: March Madness Prediction Neural Network 
 
 A machine learning-based system for predicting NCAA March Madness basketball tournament outcomes using team performance metrics and neural networks.
 
