@@ -1,6 +1,6 @@
 # Madness-Predictor: March Madness Prediction Neural Network 
 
-A machine learning-based system for predicting NCAA March Madness basketball tournament outcomes using team performance metrics and neural networks.
+A machine learning-based system for predicting NCAA March Madness basketball tournament outcomes using team performance metrics and neural networks. We ultimately achieved 70.05% test accuracy and correctly predicted 69.84% of tournament winners.
 
 ## Project Overview
 
