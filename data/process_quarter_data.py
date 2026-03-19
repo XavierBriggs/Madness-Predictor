@@ -64,7 +64,7 @@ def compute_team_per_quarter_matrix(csv_file):
 
 
     for (season, quarter, team), stats in team_stats.items():
-        opponents = [opponent for (s, q, opponent) in team_stats.keys() if s == season and opponent != team]
+        opponents = [opponent for (s, q, opponent) in team_stats.keys() if s == season and q == quarter and opponent != team]
         if opponents:
             avg_opponent_def = sum(team_stats[(season, quarter, opp)]["PointsPerPoss"] / team_stats[(season, quarter, opp)]["TotalPoss"]
                                    for opp in opponents) / len(opponents)

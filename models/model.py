@@ -79,7 +79,8 @@ def train_model(model, train_loader, test_loader, epochs=100, lr=0.001):
     plt.xlabel("Epochs")
     plt.ylabel("Loss")
     plt.title("Training Loss Over Time")
-    plt.show()
+    plt.savefig("training_loss.png")
+    plt.close()
 
 def evaluate_model(model, test_loader):
     model.eval()  # Set to evaluation mode
@@ -117,3 +118,4 @@ if __name__ == "__main__":
     print(f"Final Test Accuracy: {final_accuracy:.2f}%")
 
     torch.save(model.state_dict(), "model_heavy.pth")
+    torch.save(model.state_dict(), "model.pth")

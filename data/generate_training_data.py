@@ -81,7 +81,7 @@ def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_c
 
 # Example usage
 generate_training_data(
-    "raw\MRegularSeasonDetailedResults_with_poss.csv",
+    "raw/MRegularSeasonDetailedResults_with_poss.csv",
     "processed/teams.csv",
     "../models/data/training_data.csv",
     "../models/data/testing_data.csv"

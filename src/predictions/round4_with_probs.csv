@@ -1,5 +1,5 @@
 team,away_team,team1_id,team2_id,Win_Prob_Team1,Win_Prob_Team2
-Auburn,North Carolina,1120,1314,0.8327488,0.16725121
-Florida,St. John's,1196,1385,0.9991555,0.0008444641
-Duke,Alabama,1181,1104,0.9989237,0.0010762217
-Tennessee,Purdue,1397,1345,0.7571737,0.24282625
+Duke,Michigan St,1181,1277,0.999915,8.49898e-05
+Michigan,Tennessee,1276,1397,0.7242432,0.27575678
+Florida,North Carolina,1196,1314,0.99995637,4.35738e-05
+Arizona,Gonzaga,1112,1211,0.9991781,0.0008218454

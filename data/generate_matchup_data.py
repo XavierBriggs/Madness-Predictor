@@ -26,7 +26,7 @@ matchups = matchups.merge(teams, left_on="team2_id", right_on="TeamID", suffixes
 
 # Filter for Season = 2025 and Quarter = 4
 matchups = matchups[
-    (matchups["Season"] == 2025) & (matchups["QuarterID"] == 4) 
+    (matchups["Season"] == 2026) & (matchups["QuarterID"] == 4)
     # (matchups["Team2_Season"] == 2025) & (matchups["Team2_QuarterID"] == 4)
 ]
 
