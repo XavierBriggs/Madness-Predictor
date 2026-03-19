@@ -1,38 +1,23 @@
-# Data Directory
+# Data
 
-## Overview
-This directory contains all data-related files for the Madness-Predictor March Madness prediction project, including raw NCAA tournament data, data processing scripts, and processed datasets ready for model training.
+Raw NCAA datasets and processing scripts that produce the team feature matrix and training data.
 
-## Directory Structure
-- `/raw`: Original NCAA basketball data files
-- `/processed`: Cleaned and transformed data files ready for model consumption
+## Scripts
 
-## Key Files
+| Script | Purpose |
+|--------|---------|
+| `process_quarter_data.py` | Computes 14 per-possession metrics per team per quarter from raw game logs |
+| `generate_training_data.py` | Pairs historical matchups into train/test splits for the neural network |
+| `generate_matchup_data.py` | Builds feature vectors for a given tournament round's matchups |
+| `process_data.sh` | Runs the full data pipeline (process → train data → round 1 matchups) |
+| `score_distributions.py` | Utility for analyzing historical score differentials |
 
-### Scripts
-- `generate_matchup_data.py`: Creates matchup data for tournament predictions
-- `generate_training_data.py`: Prepares training datasets for the neural network model
-- `process_quarter_data.py`: Processes data by season quarters for more accurate predictions
-- `process_data.sh`: Shell script to automate the data processing pipeline
-- `score_distributions.py`: Analyzes score distributions from historical games
+## Pipeline
 
-### Data Flow
-1. Raw NCAA data is stored in the `/raw` directory
-2. Processing scripts transform raw data into structured formats
-3. Processed data is saved to the `/processed` directory
-4. Training data is generated for model training
-5. Matchup data is created for tournament predictions
-
-## Usage
-To process raw data and generate training datasets:
-
-```bash
-# Run the data processing pipeline
-./process_data.sh
-
-# Generate training data from processed files
-python generate_training_data.py
 ```
-
-## Data Description
-The processed data includes team statistics, tournament results, and matchup information formatted for the neural network model. Features include offensive and defensive metrics, tempo-adjusted statistics, and historical performance indicators.
+raw/*.csv → process_quarter_data.py → processed/teams.csv
+                                           ↓
+raw/*.csv → generate_training_data.py → models/data/{training,testing}_data.csv
+                                           ↓
+processed/round{r}.csv → generate_matchup_data.py → processed/matchups{r}.csv
+```
