@@ -15,8 +15,10 @@ def compute_team_per_quarter_matrix(csv_file):
 
     df["QuarterID"] = pd.cut(df["DayNum"], bins=[-1, 33, 66, 99, 132], labels=[1, 2, 3, 4]).astype(int)
 
-    df["WPoss"] = df["WFGA"] - (df["WOR"] / (df["WOR"] + df["LDR"])) * (df["WFGA"] - df["WFGM"]) * 1.07 + df["WTO"] + (0.44 * df["WFTA"])
-    df["LPoss"] = df["LFGA"] - (df["LOR"] / (df["LOR"] + df["WDR"])) * (df["LFGA"] - df["LFGM"]) * 1.07 + df["LTO"] + (0.44 * df["LFTA"])
+    df["WPoss"] = (df["WFGA"] - (df["WOR"] / (df["WOR"] + df["LDR"]))
+                   * (df["WFGA"] - df["WFGM"]) * 1.07 + df["WTO"] + 0.44 * df["WFTA"])
+    df["LPoss"] = (df["LFGA"] - (df["LOR"] / (df["LOR"] + df["WDR"]))
+                   * (df["LFGA"] - df["LFGM"]) * 1.07 + df["LTO"] + 0.44 * df["LFTA"])
 
     for prefix in ["W", "L"]:
         opp = "L" if prefix == "W" else "W"
@@ -59,23 +61,27 @@ def compute_team_per_quarter_matrix(csv_file):
             team_stats[key]["BLK%"] += row[f"{prefix}BLK%"] * poss
             team_stats[key]["PointsPerPoss"] += score * poss
 
-    season_avg_ppp = {
-        season: sum(team_stats[(s, q, t)]["PointsPerPoss"] / team_stats[(s, q, t)]["TotalPoss"]
-                    for (s, q, t) in team_stats.keys() if s == season) /
-                len([t for (s, q, t) in team_stats.keys() if s == season])
-        for season in set(s for s, q, t in team_stats.keys())
-    }
+    season_avg_ppp = {}
+    for season in set(s for s, q, t in team_stats.keys()):
+        entries = [(s, q, t) for (s, q, t) in team_stats.keys() if s == season]
+        total = sum(team_stats[k]["PointsPerPoss"] / team_stats[k]["TotalPoss"] for k in entries)
+        season_avg_ppp[season] = total / len(entries)
 
     for (season, quarter, team), stats in team_stats.items():
-        opponents = [opponent for (s, q, opponent) in team_stats.keys() if s == season and q == quarter and opponent != team]
+        opponents = [
+            opp for (s, q, opp) in team_stats.keys()
+            if s == season and q == quarter and opp != team
+        ]
         if opponents:
-            avg_opponent_def = sum(team_stats[(season, quarter, opp)]["PointsPerPoss"] / team_stats[(season, quarter, opp)]["TotalPoss"]
-                                   for opp in opponents) / len(opponents)
-            avg_opponent_off = sum(team_stats[(season, quarter, opp)]["PointsPerPoss"] / team_stats[(season, quarter, opp)]["TotalPoss"]
-                                   for opp in opponents) / len(opponents)
+            avg_opp_ppp = sum(
+                team_stats[(season, quarter, opp)]["PointsPerPoss"]
+                / team_stats[(season, quarter, opp)]["TotalPoss"]
+                for opp in opponents
+            ) / len(opponents)
 
-            stats["AdjO"] = (stats["PointsPerPoss"] / stats["TotalPoss"]) * (avg_opponent_def / season_avg_ppp[season])
-            stats["AdjD"] = (stats["PointsPerPoss"] / stats["TotalPoss"]) * (avg_opponent_off / season_avg_ppp[season])
+            ppp = stats["PointsPerPoss"] / stats["TotalPoss"]
+            stats["AdjO"] = ppp * (avg_opp_ppp / season_avg_ppp[season])
+            stats["AdjD"] = ppp * (avg_opp_ppp / season_avg_ppp[season])
 
     team_features = []
     for (season, quarter, team), stats in team_stats.items():
@@ -97,7 +103,10 @@ def compute_team_per_quarter_matrix(csv_file):
         ])
         team_features.append(row)
 
-    feature_columns = ["Season", "QuarterID", "TeamID", "TS%", "eFG%", "TO%", "OREB%", "DREB%", "FTR", "3PAr", "AST/TO", "STL%", "BLK%", "PointsPerPoss", "AdjO", "AdjD"]
+    feature_columns = [
+        "Season", "QuarterID", "TeamID", "TS%", "eFG%", "TO%", "OREB%", "DREB%",
+        "FTR", "3PAr", "AST/TO", "STL%", "BLK%", "PointsPerPoss", "AdjO", "AdjD",
+    ]
     team_matrix = pd.DataFrame(team_features, columns=feature_columns)
     return team_matrix
 

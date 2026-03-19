@@ -13,7 +13,8 @@ from scipy.special import erf
 from config import RAW_DIR, PROCESSED_DIR, MODEL_DATA_DIR
 
 
-def generate_training_data(tourney_results_csv, team_feature_matrix_csv, train_csv, test_csv, test_size=0.2, random_seed=3627):
+def generate_training_data(tourney_results_csv, team_feature_matrix_csv,
+                           train_csv, test_csv, test_size=0.2, random_seed=3627):
     """Create train/test datasets from historical matchups with soft win probability labels."""
     tourney_results = pd.read_csv(tourney_results_csv)
     team_features = pd.read_csv(team_feature_matrix_csv)

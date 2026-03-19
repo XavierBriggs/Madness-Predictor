@@ -16,4 +16,4 @@ clean:
 	rm -f models/*.pth
 
 lint:
-	python -m flake8 data/ models/ src/ config.py --max-line-length=120 --ignore=E402
+	python -m flake8 data/ models/ src/ config.py --max-line-length=120 --ignore=E402,W503
