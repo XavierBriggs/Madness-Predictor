@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# PyTorch model weights
+*.pth
+
+# Large generated data files
+data/raw/MRegularSeasonDetailedResults_with_poss.csv
+models/data/training_data.csv
+models/data/testing_data.csv
+data/processed/teams.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

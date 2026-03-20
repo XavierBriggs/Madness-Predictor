@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 if [ $# -ne 1 ]; then
     echo "Usage: ./play_round.sh <round_number>"
@@ -6,18 +7,17 @@ if [ $# -ne 1 ]; then
 fi
 
 ROUND=$1
+NEXT=$((ROUND + 1))
 
 echo "Running predictor.py for round $ROUND..."
-python3 predictor.py $ROUND
+python3 predictor.py --round $ROUND
 
-echo "Running generate_r2.py for round $ROUND..."
-NEXT=$((ROUND + 1))
-python3 generate_rr.py $NEXT
+echo "Running generate_rr.py for round $NEXT..."
+python3 generate_rr.py --round $NEXT
 
 echo "Running generate_matchup_data.py for round $NEXT..."
-NEXT=$((ROUND + 1))
-cd ../data || EXIT
-python3 generate_matchup_data.py $NEXT
-cd ../src || EXIT
+cd ../data || exit
+python3 generate_matchup_data.py --round $NEXT
+cd ../src || exit
 
 echo "Round $ROUND processing complete!"
